@@ -41,13 +41,19 @@ class Tennis
         $this->player1 = $player1;
     }
 
-    public function score() {
+    public function score()
+    {
 
         $score = $this->lookup[$this->player1->points] . '-';
-        $score .= ($this->player1->points == $this->player2->points) 
+        $score .= $this->tied() 
                     ? 'All' 
                     : $this->lookup[$this->player2->points];
 
         return $score;
+    }
+
+    private function tied()
+    {
+        return ($this->player1->points == $this->player2->points);
     }
 }
