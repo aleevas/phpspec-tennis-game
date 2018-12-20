@@ -17,6 +17,18 @@ class Tennis
      */
     private $player2;
 
+    /**
+     * Points to score lookup table.
+     *
+     * @var array
+     */
+    private $lookup = [
+        0 => 'Love',
+        1 => 'Fifteen',
+        2 => 'Thirty',
+        3 => 'Forty'
+    ];
+
         /**
      * Create a new Tennis instance.
      *
@@ -30,12 +42,12 @@ class Tennis
     }
 
     public function score() {
-        if ($this->player1->points == 2 && $this->player2->points == 0 ) {
-            return 'Thirty-Love';
-        }
-        if ($this->player1->points == 1 && $this->player2->points == 0 ) {
-            return 'Fifteen-Love';
-        }
-        return 'Love-All';
+
+        $score = $this->lookup[$this->player1->points] . '-';
+        $score .= ($this->player1->points == $this->player2->points) 
+                    ? 'All' 
+                    : $this->lookup[$this->player2->points];
+
+        return $score;
     }
 }
