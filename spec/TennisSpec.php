@@ -16,7 +16,7 @@ class TennisSpec extends ObjectBehavior
     {
         $this->alex = new Player('Alex A', 0);
         $this->poly = new Player('Poly N', 0);
-        $this->beConstructedWith($this->john, $this->jane);
+        $this->beConstructedWith($this->alex, $this->poly);
     }
 
     function it_is_initializable()
@@ -27,4 +27,11 @@ class TennisSpec extends ObjectBehavior
     function it_scores_a_scoreless_game() {
         $this->score()->shouldReturn('Love-All');
     }
+
+    function it_scores_a_1_0_game()
+    {
+        $this->alex->earnPoints(1);
+        $this->score()->shouldReturn('Fifteen-Love');
+    }
 }
+

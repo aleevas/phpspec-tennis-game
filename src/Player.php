@@ -26,4 +26,15 @@ class Player {
         $this->points = $points;
         $this->name = $name;
     }
+
+      /**
+     * Set the points for the player.
+     * 
+     * @param $points
+     */
+    public function earnPoints($points)
+    {
+        $this->points = $points;
+    }
+    
 }
