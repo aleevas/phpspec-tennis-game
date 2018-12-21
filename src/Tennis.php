@@ -29,7 +29,7 @@ class Tennis
         3 => 'Forty'
     ];
 
-        /**
+     /**
      * Create a new Tennis instance.
      *
      * @param Player $player1
@@ -41,6 +41,11 @@ class Tennis
         $this->player1 = $player1;
     }
 
+    /**
+     * Calculate the current tennis score.
+     *
+     * @return string
+     */
     public function score()
     {
         if ($this->hasWinner()) {
@@ -60,11 +65,21 @@ class Tennis
         return $this->mainScore();
     }
 
+    /**
+     * Determine if the two players are tied.
+     *
+     * @return bool
+     */
     private function tied()
     {
         return ($this->player1->points == $this->player2->points);
     }
 
+    /**
+     * Get the leading player.
+     *
+     * @return Player
+     */
     private function winner() 
     {
         return $this->player1->points > $this->player2->points
@@ -72,38 +87,74 @@ class Tennis
                 : $this->player2;
     }
 
+    /**
+     * Determine if there is currently a winner.
+     *
+     * @return bool
+     */
     private function hasWinner()
     {
         return $this->enoughPointsToBeWon() && $this->startingByAtleastTwo();
 
     }
 
+    /**
+     * Determine if one player is leading by at least two points.
+     *
+     * @return bool
+     */
     private function hasAnAdvantage()
     {
         return $this->enoughPointsToBeWon() && $this->startingByOne();
 
     }
 
+    /**
+     * Determine if one player is leading by exaclty one point.
+     *
+     * @return bool
+     */
     private function startingByOne()
     {
         return (abs($this->player1->points - $this->player2->points) == 1);
     }
 
+    /**
+     * Determine if the current game mode is deuce.
+     *
+     * @return bool
+     */
     private function inDeuce()
     {
         return $this->player1->points + $this->player2->points >= 6 && $this->tied();
     }
 
+    /**
+     * Determine if either player has accumulated enough points to win.
+     *
+     * @return bool
+     */
     private function enoughPointsToBeWon()
     {
         return (max([$this->player1->points, $this->player2->points]) >= 4);
     }
 
+    /**
+     * Determine if one player is leading by at least two points.
+     *
+     * @return bool
+     */
     private function startingByAtleastTwo()
     {
         return (abs($this->player1->points - $this->player2->points) >= 2);
     }
 
+
+    /**
+     * Build up a main score result.
+     *
+     * @return string
+     */
     private function mainScore()
     {
         $score = $this->lookup[$this->player1->points] . '-';
