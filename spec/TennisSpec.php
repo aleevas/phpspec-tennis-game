@@ -52,5 +52,11 @@ class TennisSpec extends ObjectBehavior
         $this->score()->shouldReturn('Win for Alex A');
     }
 
+    function it_scores_a_0_4_game()
+    {
+        $this->poly->earnPoints(4);
+        $this->score()->shouldReturn('Win for Poly N');
+    }
+
 }
 
