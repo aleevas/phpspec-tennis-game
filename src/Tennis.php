@@ -57,13 +57,7 @@ class Tennis
             return 'Deuce';
         }
 
-
-        $score = $this->lookup[$this->player1->points] . '-';
-        $score .= $this->tied() 
-                    ? 'All' 
-                    : $this->lookup[$this->player2->points];
-
-        return $score;
+        return $this->mainScore();
     }
 
     private function tied()
@@ -80,14 +74,19 @@ class Tennis
 
     private function hasWinner()
     {
-        return $this->enoughPointsToBeWon() && $this->startingByTwo();
+        return $this->enoughPointsToBeWon() && $this->startingByAtleastTwo();
 
     }
 
     private function hasAnAdvantage()
     {
-        return $this->enoughPointsToBeWon() && (abs($this->player1->points - $this->player2->points) == 1);
+        return $this->enoughPointsToBeWon() && $this->startingByOne();
 
+    }
+
+    private function startingByOne()
+    {
+        return (abs($this->player1->points - $this->player2->points) == 1);
     }
 
     private function inDeuce()
@@ -100,8 +99,17 @@ class Tennis
         return (max([$this->player1->points, $this->player2->points]) >= 4);
     }
 
-    private function startingByTwo()
+    private function startingByAtleastTwo()
     {
         return (abs($this->player1->points - $this->player2->points) >= 2);
+    }
+
+    private function mainScore()
+    {
+        $score = $this->lookup[$this->player1->points] . '-';
+        $score .= $this->tied() 
+                    ? 'All' 
+                    : $this->lookup[$this->player2->points];
+        return $score;
     }
 }
