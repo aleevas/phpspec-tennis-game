@@ -69,7 +69,17 @@ class Tennis
 
     private function hasWinner()
     {
-        return (max([$this->player1->points, $this->player2->points]) >= 4) &&
-                (abs($this->player1->points - $this->player2->points) >= 2);
+        return $this->enoughPointsToBeWon() && $this->startingByTwo();
+
+    }
+
+    private function enoughPointsToBeWon()
+    {
+        return (max([$this->player1->points, $this->player2->points]) >= 4);
+    }
+
+    private function startingByTwo()
+    {
+        return (abs($this->player1->points - $this->player2->points) >= 2);
     }
 }
